@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Context Guard - Icon Generator</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      background: #f0f4f8;
+    }
+    h1 { color: #667eea; }
+    .instruction { background: #e0e7ff; padding: 20px; border-radius: 8px; margin: 20px 0; }
+    .icon-canvas { display: inline-block; margin: 20px; border: 2px solid #d1d5db; border-radius: 8px; }
+    button { padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer; margin: 10px 5px 0 0; }
+    button:hover { background: #5568d3; }
+    .download-group { margin: 20px 0; }
+  </style>
+</head>
+<body>
+  <h1>🛡️ AI Context Guard - Icon Generator</h1>
+  <p>Generate extension icons in the correct sizes</p>
+
+  <div class="instruction">
+    <strong>Instructions:</strong>
+    <ol>
+      <li>Click each "Download" button below to save icons</li>
+      <li>Create an <code>images/</code> folder in your extension directory</li>
+      <li>Place downloaded icons in that folder</li>
+      <li>Icons are ready to use in manifest.json</li>
+    </ol>
+  </div>
+
+  <h2>Icon Sizes</h2>
+
+  <div class="download-group">
+    <h3>16x16 (Toolbar icon)</h3>
+    <canvas id="canvas16" class="icon-canvas" width="16" height="16"></canvas>
+    <br>
+    <button onclick="downloadIcon(16)">Download icon-16.png</button>
+  </div>
+
+  <div class="download-group">
+    <h3>48x48 (Extension menu)</h3>
+    <canvas id="canvas48" class="icon-canvas" width="48" height="48"></canvas>
+    <br>
+    <button onclick="downloadIcon(48)">Download icon-48.png</button>
+  </div>
+
+  <div class="download-group">
+    <h3>128x128 (Web Store)</h3>
+    <canvas id="canvas128" class="icon-canvas" width="128" height="128"></canvas>
+    <br>
+    <button onclick="downloadIcon(128)">Download icon-128.png</button>
+  </div>
+
+  <script>
+    function drawIcon(size) {
+      const canvas = document.getElementById(`canvas${size}`);
+      const ctx = canvas.getContext('2d');
+      
+      // Background gradient
+      const gradient = ctx.createLinearGradient(0, 0, size, size);
+      gradient.addColorStop(0, '#667eea');
+      gradient.addColorStop(1, '#764ba2');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, size, size);
+      
+      // White shield
+      const shieldSize = size * 0.7;
+      const shieldX = (size - shieldSize) / 2;
+      const shieldY = size * 0.15;
+      
+      ctx.fillStyle = 'white';
+      ctx.beginPath();
+      ctx.moveTo(shieldX, shieldY);
+      ctx.lineTo(shieldX + shieldSize, shieldY);
+      ctx.lineTo(shieldX + shieldSize, shieldY + shieldSize * 0.6);
+      ctx.quadraticCurveTo(
+        shieldX + shieldSize / 2,
+        shieldY + shieldSize,
+        shieldX,
+        shieldY + shieldSize * 0.6
+      );
+      ctx.closePath();
+      ctx.fill();
+      
+      // Checkmark
+      const checkSize = shieldSize * 0.4;
+      const checkX = shieldX + shieldSize * 0.25;
+      const checkY = shieldY + shieldSize * 0.3;
+      
+      ctx.strokeStyle = '#667eea';
+      ctx.lineWidth = Math.max(1, size / 16);
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      
+      ctx.beginPath();
+      ctx.moveTo(checkX, checkY + checkSize * 0.5);
+      ctx.lineTo(checkX + checkSize * 0.35, checkY + checkSize);
+      ctx.lineTo(checkX + checkSize, checkY);
+      ctx.stroke();
+    }
+
+    function downloadIcon(size) {
+      const canvas = document.getElementById(`canvas${size}`);
+      const link = document.createElement('a');
+      link.href = canvas.toDataURL('image/png');
+      link.download = `icon-${size}.png`;
+      link.click();
+    }
+
+    // Draw all icons on load
+    window.addEventListener('load', () => {
+      drawIcon(16);
+      drawIcon(48);
+      drawIcon(128);
+    });
+  </script>
+</body>
+</html>
