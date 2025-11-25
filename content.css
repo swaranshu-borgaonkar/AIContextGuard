@@ -1,0 +1,244 @@
+/* AI Context Guard Warning Styles */
+
+.acg-warning {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.acg-warning-content {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  width: 90%;
+  overflow: hidden;
+  animation: acg-slideIn 0.3s ease-out;
+}
+
+@keyframes acg-slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.acg-warning-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.acg-warning.acg-severity-critical .acg-warning-header {
+  background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+  color: white;
+}
+
+.acg-warning.acg-severity-high .acg-warning-header {
+  background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+  color: white;
+}
+
+.acg-warning-icon {
+  font-size: 24px;
+  animation: acg-pulse 2s infinite;
+}
+
+@keyframes acg-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.acg-warning-title {
+  font-size: 18px;
+  font-weight: 700;
+  flex: 1;
+}
+
+.acg-close-btn {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: inherit;
+  padding: 0;
+  line-height: 1;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.acg-close-btn:hover {
+  opacity: 1;
+}
+
+.acg-warning-body {
+  padding: 20px;
+}
+
+.acg-warning-message {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.6;
+}
+
+.acg-findings-preview {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.acg-finding-type {
+  display: inline-block;
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #374151;
+  font-family: 'Monaco', 'Courier New', monospace;
+}
+
+.acg-warning.acg-severity-critical .acg-finding-type {
+  background: rgba(220, 38, 38, 0.1);
+  border-color: rgba(220, 38, 38, 0.3);
+  color: #991b1b;
+}
+
+.acg-warning.acg-severity-high .acg-finding-type {
+  background: rgba(234, 88, 12, 0.1);
+  border-color: rgba(234, 88, 12, 0.3);
+  color: #92400e;
+}
+
+.acg-finding-more {
+  display: inline-block;
+  background: #e5e7eb;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.acg-warning-actions {
+  display: flex;
+  gap: 8px;
+  padding: 16px 20px;
+  border-top: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+.acg-btn {
+  flex: 1;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.acg-btn-redact {
+  background: #10b981;
+  color: white;
+  order: 1;
+}
+
+.acg-btn-redact:hover {
+  background: #059669;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.acg-btn-cancel {
+  background: #e5e7eb;
+  color: #374151;
+  order: 2;
+}
+
+.acg-btn-cancel:hover {
+  background: #d1d5db;
+}
+
+.acg-btn-force {
+  background: white;
+  color: #6b7280;
+  border: 1px solid #d1d5db;
+  order: 3;
+}
+
+.acg-btn-force:hover {
+  background: #f9fafb;
+  color: #374151;
+}
+
+.acg-warning.acg-severity-critical .acg-btn-redact {
+  background: #dc2626;
+}
+
+.acg-warning.acg-severity-critical .acg-btn-redact:hover {
+  background: #b91c1c;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .acg-warning-content {
+    width: 95%;
+    border-radius: 8px;
+  }
+
+  .acg-warning-header {
+    padding: 16px;
+  }
+
+  .acg-warning-body {
+    padding: 16px;
+  }
+
+  .acg-warning-actions {
+    flex-direction: column;
+    padding: 12px 16px;
+  }
+
+  .acg-btn {
+    width: 100%;
+    order: unset !important;
+  }
+
+  .acg-finding-type {
+    font-size: 11px;
+    padding: 3px 6px;
+  }
+}
+
+/* Prevent selection highlight issues */
+.acg-warning * {
+  box-sizing: border-box;
+}
+
+.acg-warning {
+  all: revert;
+}
